@@ -13,7 +13,9 @@ export default {
         return {
             cameraConstraints: {
                 video: {
-                    frameRate: 240
+                    frameRate: 60,
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
                 }
             }
         }
@@ -43,12 +45,22 @@ export default {
 </script>
 
 <style>
+    .camera {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+    }
     .feed {
-        position: fixed;
-        right: 0;
+        position: absolute;
         top: 0;
-        /* min-width: 100%;
-        min-height: 100%; */
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        min-width: 50%;
+        min-height: 50%;
     }
 
 </style>
