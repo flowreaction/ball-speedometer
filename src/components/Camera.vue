@@ -13,9 +13,14 @@ export default {
         return {
             cameraConstraints: {
                 video: {
-                    frameRate: 60,
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
+                    frameRate: { 
+                        min: 20,
+                        ideal: 30,
+                        max: 60
+                        },
+                    facingMode: "environment",
+                    width: { ideal: 1920 },
+                    height: { ideal: 1200 }
                 }
             }
         }
