@@ -31,6 +31,7 @@ export default {
                 navigator.mediaDevices.getUserMedia(this.cameraConstraints)
                     .then(stream => {
                         const videoPlayer = document.querySelector("video");
+                        videoPlayer.setAttribute("playsinline", true);
                         videoPlayer.srcObject = stream;
                         videoPlayer.play();
                     })
@@ -49,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .camera {
         position: absolute;
         top: -50%;
