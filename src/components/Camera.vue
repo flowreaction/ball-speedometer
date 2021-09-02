@@ -1,42 +1,50 @@
 <template>
     <div class="camera">
-        <video autoplay class="feed"></video>
+        <video autoplay playsinline class="feed"></video>
+        <button id="infoBtn" @click="printInfo()">Print Info</button>
     </div>
 </template>
 
 <script>
 // import * as tf from '@tensorflow/tfjs'
+// import * as mobilenet from '@tensorflow-models/mobilenet'
 
 export default {
     name: "camera",
     data: function() {
         return {
+            currentPrediciton : {},
+            stream: null,
             cameraConstraints: {
                 video: {
-                    frameRate: { 
-                        min: 20,
-                        ideal: 30,
-                        max: 60
-                        },
+                    // frameRate: { 
+                    //     min: 30,
+                    //     ideal: 1000,
+                    //     // max: 240
+                    //     },
                     facingMode: "environment",
-                    width: { ideal: 1920 },
-                    height: { ideal: 1200 }
+                    // width: { ideal: 1920 },
+                    // height: { ideal: 1200 }
                 }
             }
         }
     },
     methods: {
-        init () {
+        async init(){
             if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
-                navigator.mediaDevices.getUserMedia(this.cameraConstraints)
-                    .then(stream => {
-                        const videoPlayer = document.querySelector("video");
-                        videoPlayer.setAttribute("playsinline", true);
-                        videoPlayer.srcObject = stream;
-                        videoPlayer.play();
-                    })
-            }
+                console.log("Getting camera from user")
+                this.stream = await navigator.mediaDevices.getUserMedia(this.cameraConstraints)
+                const videoPlayer = document.querySelector("video");
+                videoPlayer.srcObject = this.stream;
+                videoPlayer.play();
+                }
+
+        },
+        printInfo (){
+            console.log(this.stream.getVideoTracks()[0].getSettings())
         }
+                
+
     },
     beforeMount(){
         this.init()
@@ -51,22 +59,19 @@ export default {
 </script>
 
 <style scoped>
-    .camera {
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-    }
+
     .feed {
         position: absolute;
         top: 0;
-        bottom: 0;
-        right: 0;
         left: 0;
-        margin: auto;
-        min-width: 50%;
-        min-height: 50%;
+        width: 100vw;
+        max-height: 100vh;
     }
-
+    #infoBtn {
+        position: absolute;
+        z-index: 1;
+        width: 10vw;
+        height: 5vh;
+        transform: translate(-50%);
+    }
 </style>
