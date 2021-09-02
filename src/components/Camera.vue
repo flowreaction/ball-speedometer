@@ -17,14 +17,13 @@ export default {
             stream: null,
             cameraConstraints: {
                 video: {
-                    // frameRate: { 
-                    //     min: 30,
-                    //     ideal: 1000,
-                    //     // max: 240
-                    //     },
+                    frameRate: { 
+                        min: 30,
+                        ideal: 120,
+                        },
                     facingMode: "environment",
-                    // width: { ideal: 1920 },
-                    // height: { ideal: 1200 }
+                    width: { ideal: 1920 },
+                    height: { ideal: 1200 }
                 }
             }
         }
