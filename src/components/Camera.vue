@@ -17,14 +17,14 @@ export default {
       currentPrediciton: {},
       stream: null,
       mediaTrack: null,
-      cameraSelector: "environment",
+      faceUser: false,
       cameraConstraints: {
         video: {
           frameRate: {
             min: 30,
             ideal: 120,
           },
-          facingMode: this.cameraSelector,
+          facingMode: this.faceUser ? 'user': 'environment',
           width: { ideal: 1920 },
           height: { ideal: 1200 },
         },
@@ -52,8 +52,9 @@ export default {
     },
     switchCamera(){
       console.log("switching camera")
-      this.cameraSelector = this.cameraSelector === "environment" ? "user" : "environment";
+      this.faceUser = !this.faceUser;
       this.mediaTrack.applyConstraints(this.cameraConstraints)
+      console.log(`faceUser: ${this.faceUser}`)
     }
   },
   beforeMount() {
